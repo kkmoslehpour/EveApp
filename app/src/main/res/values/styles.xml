@@ -15,7 +15,7 @@
 -->
 
 <resources>
-    <style name="StyledIndicators" parent="@style/CustomActionBarTheme">
+    <style name="StyledIndicators">
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
 
