@@ -11,11 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.viewpagerindicator.TabPageIndicator;
 
 public class MyActivity extends FragmentActivity {
     private static final String[] CONTENT = new String[] { "Women", "Men", "Kids", "Jewelry", "Beauty", "Lifestyle" };
+    ViewPager pager;
+    FragmentPagerAdapter adapter;
+    private boolean isFirstOrLastPage;
+    private int currentPageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +28,44 @@ public class MyActivity extends FragmentActivity {
         drawCustomActionBar();
         setContentView(R.layout.simple_tabs);
 
-        FragmentPagerAdapter adapter = new GoogleMusicAdapter(getSupportFragmentManager());
+        adapter = new GoogleMusicAdapter(getSupportFragmentManager());
 
-        ViewPager pager = (ViewPager)findViewById(R.id.pager);
+        pager = (ViewPager)findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
         TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            // This method will be invoked when a new page becomes selected.
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(MyActivity.this,
+                        "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+            }
+            // This method will be invoked when the current page is scrolled
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(currentPageIndex!=position){
+                    isFirstOrLastPage = false;
+                    return;
+                }
+                if(positionOffset == 0 && positionOffsetPixels == 0){
+                    if(isFirstOrLastPage){
+                        //DO SOMETHING
+                        if(position==0) {pager.setCurrentItem(CONTENT.length-1, true); currentPageIndex=position;}
+                        else if(position==CONTENT.length-1) {pager.setCurrentItem(0, true); currentPageIndex=position;}
+                    }else{
+                        isFirstOrLastPage = true;
+                    }
+                }
+            }
+            // Called when the scroll state changes:
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Code goes here
+            }
+        });
+
         indicator.setViewPager(pager);
     }
 
@@ -65,6 +102,7 @@ public class MyActivity extends FragmentActivity {
         public int getCount() {
             return CONTENT.length;
         }
+
     }
 }
 

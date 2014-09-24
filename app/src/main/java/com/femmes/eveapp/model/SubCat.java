@@ -1,7 +1,5 @@
 package com.femmes.eveapp.model;
 
-import java.util.ArrayList;
-
 public class SubCat {
     private String subCat, productUrl;
 
