@@ -1,5 +1,7 @@
 package com.femmes.eveapp;
 
+import com.femmes.eveapp.util.LruBitmapCache;
+
 import android.app.Application;
 import android.text.TextUtils;
 
@@ -35,14 +37,14 @@ public class AppController extends Application {
         return mRequestQueue;
     }
 
-//    public ImageLoader getImageLoader() {
-//        getRequestQueue();
-//        if (mImageLoader == null) {
-//            mImageLoader = new ImageLoader(this.mRequestQueue,
-//                    new LruBitmapCache());
-//        }
-//        return this.mImageLoader;
-//    }
+    public ImageLoader getImageLoader() {
+        getRequestQueue();
+        if (mImageLoader == null) {
+            mImageLoader = new ImageLoader(this.mRequestQueue,
+                    new LruBitmapCache());
+        }
+        return this.mImageLoader;
+    }
 
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         // set the default tag if tag is empty

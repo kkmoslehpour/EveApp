@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ListFragment;
@@ -140,7 +141,10 @@ public final class TestFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Log.d(TAG, ""+position+"::"+id);
+        Log.d(TAG, ""+subCatList.get(0).getCatid());
+        Intent k = new Intent(getActivity(), ItemsActivity.class);
+        k.putExtra("catid", subCatList.get(position).getCatid());
+        startActivity(k);
     }
 
     public List<SubCat> makeRequest(String jsonURL){
@@ -156,13 +160,13 @@ public final class TestFragment extends ListFragment {
                                 SubCat subcat = new SubCat();
                                 subcat.setSubCat(obj.getString("name"));
                                 subcat.setProductUrl(obj.getString("url"));
+                                subcat.setCatid(obj.getInt("catid"));
                                 subCatList.add(subcat);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             adapter.notifyDataSetChanged();
                         }
-                        //
                     }
                 },
                 new Response.ErrorListener(){
