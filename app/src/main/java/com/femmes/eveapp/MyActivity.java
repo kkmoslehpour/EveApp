@@ -46,6 +46,7 @@ public class MyActivity extends FragmentActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(currentPageIndex!=position){
                     isFirstOrLastPage = false;
+                    currentPageIndex=position;
                     return;
                 }
                 if(positionOffset == 0 && positionOffsetPixels == 0){

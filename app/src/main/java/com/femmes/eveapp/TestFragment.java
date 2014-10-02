@@ -144,6 +144,7 @@ public final class TestFragment extends ListFragment {
         Log.d(TAG, ""+subCatList.get(0).getCatid());
         Intent k = new Intent(getActivity(), ItemsActivity.class);
         k.putExtra("catid", subCatList.get(position).getCatid());
+        k.putExtra("title", subCatList.get(position).getSubCat());
         startActivity(k);
     }
 
