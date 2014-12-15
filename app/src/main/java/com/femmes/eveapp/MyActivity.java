@@ -35,6 +35,7 @@ public class MyActivity extends FragmentActivity {
 
         TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//////////////////////////////////////////////////////////////////////////////////////////
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
